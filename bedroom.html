@@ -1,0 +1,96 @@
+<html>
+<head>
+
+	<title>bedroom</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body background="bedroom.jpg">
+
+  <center>
+    <h1 class=" btn btn-info Heading">Object Detection</h1>
+
+    <h3 id="status" class="btn btn-danger">Object:Detected</h3>
+
+    <a href="index.html">
+      <h2 class="btn btn-warning ">Back</h3>
+      </a>
+
+  </center>
+
+  <script>
+    img = "";
+
+function preload(){
+    img = loadImage('bedroom.jpg');
+}
+
+function setup() {
+    canvas = createCanvas(550, 390);
+    canvas.center();
+    objectDetection = ml5.objectDetector('cocossd', modelLoaded);
+    document.getElementById("status").innerHTML = "Status : Object Detected";
+}
+
+function modelLoaded () {
+  console.log("ModelLoaded");
+  status = true ;
+  objectDetection.detect(img, gotResults);
+}
+
+function gotResult(error , results)
+{
+   if(error)
+   {
+    console.log(error);
+   }
+   console.log(results);
+}
+
+
+function draw() {
+    image(img, 0, 0, 640, 420);
+    fill("#FF0000");
+    text("bed", 138, 164);
+    noFill();
+    stroke("#FF0000");
+    rect(325, 125, 150, 225);
+
+    fill("#00FF00");
+    text("flower", 330, 137);
+    noFill();
+    stroke("#00FF00");
+    rect(134, 150, 350, 225);
+
+    fill("#0000FF");
+    text("night lamp", 95, 275);
+    noFill();
+    stroke("#0000FF");
+    rect(100, 280, 50, 50);
+
+}
+</script>
+
+<style>
+  background
+  {
+    background-position: center;
+    background-size: cover;
+  }
+  h2
+   {
+    float: right;
+   }
+</style>
+
+  <script src="main.js"></script>
+</body>
+</html>
